@@ -6,6 +6,11 @@ $(window).ready(function(){
   var calculateTimeToRead = function(wordsPerMinute){
     var timeToRead = function(fetchData, wordsPerMinute){
       wordCount = fetchData.split(" ").length;
+      console.log(wordCount);
+      wordCount = wordCount + fetchData.split(".").length;
+      console.log(wordCount);
+      wordCount = wordCount + fetchData.split(",").length;
+      console.log(wordCount);
       timeToRead = wordCount / wordsPerMinute;
       timeToRead = Math.round(timeToRead);
       return timeToRead;
