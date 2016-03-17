@@ -1,34 +1,38 @@
 $(window).ready(function(){
 
   // var wordsPerMinute = 230;
-  var fetchData = $('p').text();
 
-  var calculateTimeToRead = function(wordsPerMinute){
+  var calculateTimeToRead = function(fetchData, wordsPerMinute){
     var timeToRead = function(fetchData, wordsPerMinute){
       wordCount = fetchData.split(" ").length;
-      console.log(wordCount);
       wordCount = wordCount + fetchData.split(".").length;
-      console.log(wordCount);
       wordCount = wordCount + fetchData.split(",").length;
+      console.log(wordCount);
+      wordCount = wordCount + fetchData.split("<p>").length;
+      console.log(wordCount);
+      wordCount = wordCount + fetchData.split("<script>").length;
+      console.log(wordCount);
+      wordCount = wordCount + fetchData.split("<nav>").length;
+      console.log(wordCount);
+      wordCount = wordCount + fetchData.split("<h1>").length;
+      console.log(wordCount);
+      wordCount = wordCount + fetchData.split("<h3>").length;
       console.log(wordCount);
       timeToRead = wordCount / wordsPerMinute;
       timeToRead = Math.round(timeToRead);
       return timeToRead;
     };
+    timeToRead(fetchData, wordsPerMinute);
 
-    console.log("Approximately " + timeToRead(fetchData, wordsPerMinute) + " minutes to read");
-    // var approxTime = timeToRead(fetchData, wordsPerMinute);
-    readingTime = timeToRead;
-
-    var newHTML = '<p>' + readingTime + ' minutes to read</p>';
+    var newHTML = '<p>' + timeToRead + ' minutes to read</p>';
     var $htmlTag = $('time-to-read-view');
 
-    console.log(newHTML);
     $('.time-to-read-view p').html("")
     $('.time-to-read-view').append(newHTML);
   };
 
-  calculateTimeToRead(230);
+  var fetchData = $('p').text();
+  calculateTimeToRead(fetchData, 230);
 
   $("button#update-time-calc").on("click", function(){
     var wordsPerMinute = $("#update-wpm").val();
@@ -36,4 +40,7 @@ $(window).ready(function(){
     calculateTimeToRead(wordsPerMinute);
   });
 
+  console.log($("body").html());
+  var fetchData = $("body").html();
+  var timeToReadWithDetails = calculateTimeToRead(fetchData, 230);
 });
